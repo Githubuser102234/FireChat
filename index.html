@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,355 +11,352 @@
             box-sizing: border-box;
         }
 
-```
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .chat-container {
-        width: 100%;
-        max-width: 900px;
-        height: 90vh;
-        background: white;
-        border-radius: 20px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .chat-header {
-        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        color: white;
-        padding: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .chat-title {
-        font-size: 24px;
-        font-weight: bold;
-    }
-
-    .user-info {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .user-avatar {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.2);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: bold;
-    }
-
-    .online-users {
-        background: rgba(255, 255, 255, 0.1);
-        padding: 10px 20px;
-        color: white;
-        font-size: 14px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .online-indicator {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: #4ade80;
-        animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.5; }
-    }
-
-    .messages-container {
-        flex: 1;
-        overflow-y: auto;
-        padding: 20px;
-        background: #f8fafc;
-    }
-
-    .message {
-        margin-bottom: 20px;
-        display: flex;
-        align-items: flex-start;
-        gap: 10px;
-        animation: slideIn 0.3s ease-out;
-    }
-
-    @keyframes slideIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .message.own {
-        flex-direction: row-reverse;
-    }
-
-    .message-avatar {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 12px;
-        font-weight: bold;
-        flex-shrink: 0;
-    }
-
-    .message-content {
-        max-width: 70%;
-    }
-
-    .message-bubble {
-        background: white;
-        padding: 12px 16px;
-        border-radius: 18px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        word-wrap: break-word;
-    }
-
-    .message.own .message-bubble {
-        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        color: white;
-    }
-
-    .message-info {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin-top: 4px;
-        font-size: 12px;
-        color: #64748b;
-    }
-
-    .message.own .message-info {
-        justify-content: flex-end;
-    }
-
-    .typing-indicator {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 15px;
-        color: #64748b;
-        font-style: italic;
-        animation: fadeIn 0.3s ease-in;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-
-    .typing-dots {
-        display: flex;
-        gap: 4px;
-    }
-
-    .typing-dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: #64748b;
-        animation: typing 1.4s infinite;
-    }
-
-    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
-    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
-
-    @keyframes typing {
-        0%, 60%, 100% {
-            transform: translateY(0);
-        }
-        30% {
-            transform: translateY(-10px);
-        }
-    }
-
-    .message-input-container {
-        padding: 20px;
-        background: white;
-        border-top: 1px solid #e2e8f0;
-    }
-
-    .message-input-wrapper {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        background: #f1f5f9;
-        border-radius: 25px;
-        padding: 5px;
-    }
-
-    .attachment-btn {
-        width: 40px;
-        height: 40px;
-        border: none;
-        background: none;
-        cursor: pointer;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #64748b;
-        transition: all 0.2s;
-    }
-
-    .attachment-btn:hover {
-        background: #e2e8f0;
-        color: #4facfe;
-    }
-
-    .message-input {
-        flex: 1;
-        border: none;
-        background: none;
-        padding: 12px;
-        font-size: 16px;
-        outline: none;
-        resize: none;
-        max-height: 100px;
-        min-height: 40px;
-    }
-
-    .send-btn {
-        width: 40px;
-        height: 40px;
-        border: none;
-        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        color: white;
-        border-radius: 50%;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.2s;
-    }
-
-    .send-btn:hover {
-        transform: scale(1.1);
-    }
-
-    .send-btn:disabled {
-        background: #cbd5e1;
-        cursor: not-allowed;
-        transform: none;
-    }
-
-    .login-container {
-        background: white;
-        padding: 40px;
-        border-radius: 20px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-        width: 100%;
-        max-width: 400px;
-        text-align: center;
-    }
-
-    .login-title {
-        font-size: 32px;
-        font-weight: bold;
-        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        margin-bottom: 30px;
-    }
-
-    .login-input {
-        width: 100%;
-        padding: 15px;
-        border: 2px solid #e2e8f0;
-        border-radius: 10px;
-        font-size: 16px;
-        margin-bottom: 20px;
-        transition: all 0.2s;
-    }
-
-    .login-input:focus {
-        outline: none;
-        border-color: #4facfe;
-    }
-
-    .login-btn {
-        width: 100%;
-        padding: 15px;
-        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        color: white;
-        border: none;
-        border-radius: 10px;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.2s;
-    }
-
-    .login-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);
-    }
-
-    .hidden {
-        display: none !important;
-    }
-
-    .status-message {
-        padding: 10px;
-        text-align: center;
-        border-radius: 5px;
-        margin-bottom: 15px;
-    }
-
-    .status-message.error {
-        background: #fee2e2;
-        color: #dc2626;
-        border: 1px solid #fca5a5;
-    }
-
-    .status-message.success {
-        background: #dcfce7;
-        color: #16a34a;
-        border: 1px solid #86efac;
-    }
-
-    @media (max-width: 768px) {
-        .chat-container {
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             height: 100vh;
-            border-radius: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        
-        .message-content {
-            max-width: 85%;
-        }
-    }
-</style>
-```
 
+        .chat-container {
+            width: 100%;
+            max-width: 900px;
+            height: 90vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chat-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .online-users {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            color: white;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .online-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4ade80;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f8fafc;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.own {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .message-content {
+            max-width: 70%;
+        }
+
+        .message-bubble {
+            background: white;
+            padding: 12px 16px;
+            border-radius: 18px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            word-wrap: break-word;
+        }
+
+        .message.own .message-bubble {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        .message-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 4px;
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .message.own .message-info {
+            justify-content: flex-end;
+        }
+
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            color: #64748b;
+            font-style: italic;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .typing-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #64748b;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .message-input-container {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .message-input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: #f1f5f9;
+            border-radius: 25px;
+            padding: 5px;
+        }
+
+        .attachment-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            transition: all 0.2s;
+        }
+
+        .attachment-btn:hover {
+            background: #e2e8f0;
+            color: #4facfe;
+        }
+
+        .message-input {
+            flex: 1;
+            border: none;
+            background: none;
+            padding: 12px;
+            font-size: 16px;
+            outline: none;
+            resize: none;
+            max-height: 100px;
+            min-height: 40px;
+        }
+
+        .send-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .send-btn:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-title {
+            font-size: 32px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            transition: all 0.2s;
+        }
+
+        .login-input:focus {
+            outline: none;
+            border-color: #4facfe;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .status-message {
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .status-message.error {
+            background: #fee2e2;
+            color: #dc2626;
+            border: 1px solid #fca5a5;
+        }
+
+        .status-message.success {
+            background: #dcfce7;
+            color: #16a34a;
+            border: 1px solid #86efac;
+        }
+
+        @media (max-width: 768px) {
+            .chat-container {
+                height: 100vh;
+                border-radius: 0;
+            }
+            
+            .message-content {
+                max-width: 85%;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Login Screen -->
@@ -371,409 +367,406 @@
         <button id="loginBtn" class="login-btn">Join Chat</button>
     </div>
 
-```
-<!-- Chat Interface -->
-<div id="chatContainer" class="chat-container hidden">
-    <div class="chat-header">
-        <div class="chat-title">FireChat</div>
-        <div class="user-info">
-            <div class="user-avatar" id="userAvatar"></div>
-            <span id="currentUsername"></span>
-            <button id="logoutBtn" style="margin-left: 10px; padding: 5px 10px; background: rgba(255,255,255,0.2); border: none; color: white; border-radius: 5px; cursor: pointer;">Logout</button>
+    <!-- Chat Interface -->
+    <div id="chatContainer" class="chat-container hidden">
+        <div class="chat-header">
+            <div class="chat-title">FireChat</div>
+            <div class="user-info">
+                <div class="user-avatar" id="userAvatar"></div>
+                <span id="currentUsername"></span>
+                <button id="logoutBtn" style="margin-left: 10px; padding: 5px 10px; background: rgba(255,255,255,0.2); border: none; color: white; border-radius: 5px; cursor: pointer;">Logout</button>
+            </div>
+        </div>
+        
+        <div class="online-users">
+            <div class="online-indicator"></div>
+            <span id="onlineCount">0 users online</span>
+        </div>
+
+        <div class="messages-container" id="messagesContainer">
+            <!-- Messages will be dynamically inserted here -->
+        </div>
+
+        <div id="typingIndicator" class="typing-indicator hidden">
+            <span id="typingText">Someone is typing</span>
+            <div class="typing-dots">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+        </div>
+
+        <div class="message-input-container">
+            <div class="message-input-wrapper">
+                <button class="attachment-btn" title="Attach file">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5a2.5 2.5 0 0 1 5 0v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5a2.5 2.5 0 0 0 5 0V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.31 2.69 6 6 6s6-2.69 6-6V6h-2.5z"/>
+                    </svg>
+                </button>
+                <textarea id="messageInput" class="message-input" placeholder="Type your message..." rows="1"></textarea>
+                <button id="sendBtn" class="send-btn" disabled>
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                    </svg>
+                </button>
+            </div>
         </div>
     </div>
-    
-    <div class="online-users">
-        <div class="online-indicator"></div>
-        <span id="onlineCount">0 users online</span>
-    </div>
 
-    <div class="messages-container" id="messagesContainer">
-        <!-- Messages will be dynamically inserted here -->
-    </div>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-analytics.js";
+        import { getDatabase, ref, push, set, onValue, serverTimestamp, onDisconnect, remove, limitToLast } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+        import { getAuth, signInAnonymously, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
-    <div id="typingIndicator" class="typing-indicator hidden">
-        <span id="typingText">Someone is typing</span>
-        <div class="typing-dots">
-            <div class="typing-dot"></div>
-            <div class="typing-dot"></div>
-            <div class="typing-dot"></div>
-        </div>
-    </div>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDZ9Rpd5NkNFtS7UFB8R0zjNlQeN4C3f5E",
+            authDomain: "firechat-2654a.firebaseapp.com",
+            databaseURL: "https://firechat-2654a-default-rtdb.firebaseio.com/",
+            projectId: "firechat-2654a",
+            storageBucket: "firechat-2654a.firebasestorage.app",
+            messagingSenderId: "84564796007",
+            appId: "1:84564796007:web:eca04fc7fef1a7001eeac2",
+            measurementId: "G-Z3GKSLMERM"
+        };
 
-    <div class="message-input-container">
-        <div class="message-input-wrapper">
-            <button class="attachment-btn" title="Attach file">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5a2.5 2.5 0 0 1 5 0v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5a2.5 2.5 0 0 0 5 0V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.31 2.69 6 6 6s6-2.69 6-6V6h-2.5z"/>
-                </svg>
-            </button>
-            <textarea id="messageInput" class="message-input" placeholder="Type your message..." rows="1"></textarea>
-            <button id="sendBtn" class="send-btn" disabled>
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-                </svg>
-            </button>
-        </div>
-    </div>
-</div>
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const database = getDatabase(app);
+        const auth = getAuth(app);
 
-<script type="module">
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-analytics.js";
-    import { getDatabase, ref, push, set, onValue, serverTimestamp, onDisconnect, remove, limitToLast } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
-    import { getAuth, signInAnonymously, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+        // App State
+        let currentUser = null;
+        let messagesRef = null;
+        let typingTimeout = null;
+        let isTyping = false;
 
-    // Your web app's Firebase configuration
-    const firebaseConfig = {
-        apiKey: "AIzaSyDZ9Rpd5NkNFtS7UFB8R0zjNlQeN4C3f5E",
-        authDomain: "firechat-2654a.firebaseapp.com",
-        databaseURL: "https://firechat-2654a-default-rtdb.firebaseio.com/",
-        projectId: "firechat-2654a",
-        storageBucket: "firechat-2654a.firebasestorage.app",
-        messagingSenderId: "84564796007",
-        appId: "1:84564796007:web:eca04fc7fef1a7001eeac2",
-        measurementId: "G-Z3GKSLMERM"
-    };
+        // DOM Elements
+        const loginContainer = document.getElementById('loginContainer');
+        const chatContainer = document.getElementById('chatContainer');
+        const usernameInput = document.getElementById('usernameInput');
+        const loginBtn = document.getElementById('loginBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const messagesContainer = document.getElementById('messagesContainer');
+        const messageInput = document.getElementById('messageInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const statusMessage = document.getElementById('statusMessage');
+        const currentUsername = document.getElementById('currentUsername');
+        const userAvatar = document.getElementById('userAvatar');
+        const onlineCount = document.getElementById('onlineCount');
+        const typingIndicator = document.getElementById('typingIndicator');
+        const typingText = document.getElementById('typingText');
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    const database = getDatabase(app);
-    const auth = getAuth(app);
-
-    // App State
-    let currentUser = null;
-    let messagesRef = null;
-    let typingTimeout = null;
-    let isTyping = false;
-
-    // DOM Elements
-    const loginContainer = document.getElementById('loginContainer');
-    const chatContainer = document.getElementById('chatContainer');
-    const usernameInput = document.getElementById('usernameInput');
-    const loginBtn = document.getElementById('loginBtn');
-    const logoutBtn = document.getElementById('logoutBtn');
-    const messagesContainer = document.getElementById('messagesContainer');
-    const messageInput = document.getElementById('messageInput');
-    const sendBtn = document.getElementById('sendBtn');
-    const statusMessage = document.getElementById('statusMessage');
-    const currentUsername = document.getElementById('currentUsername');
-    const userAvatar = document.getElementById('userAvatar');
-    const onlineCount = document.getElementById('onlineCount');
-    const typingIndicator = document.getElementById('typingIndicator');
-    const typingText = document.getElementById('typingText');
-
-    // Utility Functions
-    function showStatus(message, type = 'error') {
-        statusMessage.textContent = message;
-        statusMessage.className = `status-message ${type}`;
-        statusMessage.classList.remove('hidden');
-        setTimeout(() => {
-            statusMessage.classList.add('hidden');
-        }, 3000);
-    }
-
-    function generateAvatar(username) {
-        return username.charAt(0).toUpperCase();
-    }
-
-    function formatTime(timestamp) {
-        const date = new Date(timestamp);
-        const now = new Date();
-        const diffMs = now - date;
-        const diffMins = Math.floor(diffMs / 60000);
-        
-        if (diffMins < 1) return 'Just now';
-        if (diffMins < 60) return `${diffMins}m ago`;
-        if (diffMins < 1440) return `${Math.floor(diffMins / 60)}h ago`;
-        
-        return date.toLocaleDateString();
-    }
-
-    // Authentication Functions
-    async function login() {
-        const username = usernameInput.value.trim();
-        
-        if (!username) {
-            showStatus('Please enter a username');
-            return;
+        // Utility Functions
+        function showStatus(message, type = 'error') {
+            statusMessage.textContent = message;
+            statusMessage.className = `status-message ${type}`;
+            statusMessage.classList.remove('hidden');
+            setTimeout(() => {
+                statusMessage.classList.add('hidden');
+            }, 3000);
         }
 
-        if (username.length > 20) {
-            showStatus('Username must be 20 characters or less');
-            return;
+        function generateAvatar(username) {
+            return username.charAt(0).toUpperCase();
         }
 
-        try {
-            // Sign in anonymously with Firebase Auth
-            const userCredential = await signInAnonymously(auth);
-            currentUser = {
-                uid: userCredential.user.uid,
-                username: username,
-                joinedAt: Date.now()
-            };
-
-            // Update user presence
-            await updateUserPresence();
+        function formatTime(timestamp) {
+            const date = new Date(timestamp);
+            const now = new Date();
+            const diffMs = now - date;
+            const diffMins = Math.floor(diffMs / 60000);
             
-            // Initialize chat
-            initializeChat();
+            if (diffMins < 1) return 'Just now';
+            if (diffMins < 60) return `${diffMins}m ago`;
+            if (diffMins < 1440) return `${Math.floor(diffMins / 60)}h ago`;
             
-            // Update UI
-            currentUsername.textContent = username;
-            userAvatar.textContent = generateAvatar(username);
-            
-            loginContainer.classList.add('hidden');
-            chatContainer.classList.remove('hidden');
-            
-            messageInput.focus();
-
-        } catch (error) {
-            console.error('Login error:', error);
-            showStatus('Failed to join chat. Please try again.');
+            return date.toLocaleDateString();
         }
-    }
 
-    async function logout() {
-        try {
-            // Remove user presence
-            if (currentUser) {
-                await remove(ref(database, `users/${currentUser.uid}`));
-                await remove(ref(database, `typing/${currentUser.uid}`));
+        // Authentication Functions
+        async function login() {
+            const username = usernameInput.value.trim();
+            
+            if (!username) {
+                showStatus('Please enter a username');
+                return;
             }
-            
-            // Sign out
-            await signOut(auth);
-            
-            // Reset state
-            currentUser = null;
-            messagesContainer.innerHTML = '';
-            messageInput.value = '';
-            usernameInput.value = '';
-            
-            // Update UI
-            chatContainer.classList.add('hidden');
-            loginContainer.classList.remove('hidden');
-            
-        } catch (error) {
-            console.error('Logout error:', error);
+
+            if (username.length > 20) {
+                showStatus('Username must be 20 characters or less');
+                return;
+            }
+
+            try {
+                // Sign in anonymously with Firebase Auth
+                const userCredential = await signInAnonymously(auth);
+                currentUser = {
+                    uid: userCredential.user.uid,
+                    username: username,
+                    joinedAt: Date.now()
+                };
+
+                // Update user presence
+                await updateUserPresence();
+                
+                // Initialize chat
+                initializeChat();
+                
+                // Update UI
+                currentUsername.textContent = username;
+                userAvatar.textContent = generateAvatar(username);
+                
+                loginContainer.classList.add('hidden');
+                chatContainer.classList.remove('hidden');
+                
+                messageInput.focus();
+
+            } catch (error) {
+                console.error('Login error:', error);
+                showStatus('Failed to join chat. Please try again.');
+            }
         }
-    }
 
-    // Presence Management
-    async function updateUserPresence() {
-        if (!currentUser) return;
+        async function logout() {
+            try {
+                // Remove user presence
+                if (currentUser) {
+                    await remove(ref(database, `users/${currentUser.uid}`));
+                    await remove(ref(database, `typing/${currentUser.uid}`));
+                }
+                
+                // Sign out
+                await signOut(auth);
+                
+                // Reset state
+                currentUser = null;
+                messagesContainer.innerHTML = '';
+                messageInput.value = '';
+                usernameInput.value = '';
+                
+                // Update UI
+                chatContainer.classList.add('hidden');
+                loginContainer.classList.remove('hidden');
+                
+            } catch (error) {
+                console.error('Logout error:', error);
+            }
+        }
 
-        const userRef = ref(database, `users/${currentUser.uid}`);
-        const connectedRef = ref(database, '.info/connected');
+        // Presence Management
+        async function updateUserPresence() {
+            if (!currentUser) return;
 
-        onValue(connectedRef, (snapshot) => {
-            if (snapshot.val() === true) {
-                // User is online
-                set(userRef, {
+            const userRef = ref(database, `users/${currentUser.uid}`);
+            const connectedRef = ref(database, '.info/connected');
+
+            onValue(connectedRef, (snapshot) => {
+                if (snapshot.val() === true) {
+                    // User is online
+                    set(userRef, {
+                        username: currentUser.username,
+                        lastSeen: serverTimestamp(),
+                        online: true
+                    });
+
+                    // Remove user when they disconnect
+                    onDisconnect(userRef).remove();
+                    onDisconnect(ref(database, `typing/${currentUser.uid}`)).remove();
+                }
+            });
+        }
+
+        function monitorOnlineUsers() {
+            const usersRef = ref(database, 'users');
+            onValue(usersRef, (snapshot) => {
+                const users = snapshot.val() || {};
+                const count = Object.keys(users).length;
+                onlineCount.textContent = `${count} user${count !== 1 ? 's' : ''} online`;
+            });
+        }
+
+        // Message Functions
+        async function sendMessage() {
+            const message = messageInput.value.trim();
+            if (!message || !currentUser) return;
+
+            try {
+                await push(ref(database, 'messages'), {
+                    text: message,
                     username: currentUser.username,
-                    lastSeen: serverTimestamp(),
-                    online: true
+                    userId: currentUser.uid,
+                    timestamp: serverTimestamp()
                 });
 
-                // Remove user when they disconnect
-                onDisconnect(userRef).remove();
-                onDisconnect(ref(database, `typing/${currentUser.uid}`)).remove();
+                messageInput.value = '';
+                sendBtn.disabled = true;
+                
+                // Stop typing indicator
+                stopTyping();
+
+            } catch (error) {
+                console.error('Send message error:', error);
+                showStatus('Failed to send message');
             }
-        });
-    }
+        }
 
-    function monitorOnlineUsers() {
-        const usersRef = ref(database, 'users');
-        onValue(usersRef, (snapshot) => {
-            const users = snapshot.val() || {};
-            const count = Object.keys(users).length;
-            onlineCount.textContent = `${count} user${count !== 1 ? 's' : ''} online`;
-        });
-    }
+        function displayMessage(messageData, messageId) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${messageData.userId === currentUser?.uid ? 'own' : ''}`;
+            messageDiv.dataset.messageId = messageId;
 
-    // Message Functions
-    async function sendMessage() {
-        const message = messageInput.value.trim();
-        if (!message || !currentUser) return;
+            const avatar = document.createElement('div');
+            avatar.className = 'message-avatar';
+            avatar.textContent = generateAvatar(messageData.username);
 
-        try {
-            await push(ref(database, 'messages'), {
-                text: message,
+            const content = document.createElement('div');
+            content.className = 'message-content';
+
+            const bubble = document.createElement('div');
+            bubble.className = 'message-bubble';
+            bubble.textContent = messageData.text;
+
+            const info = document.createElement('div');
+            info.className = 'message-info';
+            info.innerHTML = `
+                <span class="message-username">${messageData.username}</span>
+                <span class="message-time">${formatTime(messageData.timestamp)}</span>
+            `;
+
+            content.appendChild(bubble);
+            content.appendChild(info);
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(content);
+
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function listenToMessages() {
+            const messagesRef = ref(database, 'messages');
+            const messagesQuery = limitToLast(messagesRef, 50);
+            
+            onValue(messagesQuery, (snapshot) => {
+                messagesContainer.innerHTML = '';
+                const messages = snapshot.val() || {};
+                
+                Object.entries(messages).forEach(([messageId, messageData]) => {
+                    displayMessage(messageData, messageId);
+                });
+            });
+        }
+
+        // Typing Indicator Functions
+        function startTyping() {
+            if (!currentUser || isTyping) return;
+
+            isTyping = true;
+            set(ref(database, `typing/${currentUser.uid}`), {
                 username: currentUser.username,
-                userId: currentUser.uid,
                 timestamp: serverTimestamp()
             });
 
-            messageInput.value = '';
-            sendBtn.disabled = true;
-            
-            // Stop typing indicator
-            stopTyping();
+            // Clear existing timeout
+            if (typingTimeout) {
+                clearTimeout(typingTimeout);
+            }
 
-        } catch (error) {
-            console.error('Send message error:', error);
-            showStatus('Failed to send message');
+            // Auto-stop typing after 3 seconds
+            typingTimeout = setTimeout(stopTyping, 3000);
         }
-    }
 
-    function displayMessage(messageData, messageId) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `message ${messageData.userId === currentUser?.uid ? 'own' : ''}`;
-        messageDiv.dataset.messageId = messageId;
+        function stopTyping() {
+            if (!currentUser || !isTyping) return;
 
-        const avatar = document.createElement('div');
-        avatar.className = 'message-avatar';
-        avatar.textContent = generateAvatar(messageData.username);
+            isTyping = false;
+            remove(ref(database, `typing/${currentUser.uid}`));
 
-        const content = document.createElement('div');
-        content.className = 'message-content';
+            if (typingTimeout) {
+                clearTimeout(typingTimeout);
+                typingTimeout = null;
+            }
+        }
 
-        const bubble = document.createElement('div');
-        bubble.className = 'message-bubble';
-        bubble.textContent = messageData.text;
-
-        const info = document.createElement('div');
-        info.className = 'message-info';
-        info.innerHTML = `
-            <span class="message-username">${messageData.username}</span>
-            <span class="message-time">${formatTime(messageData.timestamp)}</span>
-        `;
-
-        content.appendChild(bubble);
-        content.appendChild(info);
-        messageDiv.appendChild(avatar);
-        messageDiv.appendChild(content);
-
-        messagesContainer.appendChild(messageDiv);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
-
-    function listenToMessages() {
-        const messagesRef = ref(database, 'messages');
-        const messagesQuery = limitToLast(messagesRef, 50);
-        
-        onValue(messagesQuery, (snapshot) => {
-            messagesContainer.innerHTML = '';
-            const messages = snapshot.val() || {};
+        function monitorTyping() {
+            const typingRef = ref(database, 'typing');
             
-            Object.entries(messages).forEach(([messageId, messageData]) => {
-                displayMessage(messageData, messageId);
+            onValue(typingRef, (snapshot) => {
+                const typingUsers = snapshot.val() || {};
+                const otherUsers = Object.values(typingUsers)
+                    .filter(user => user.username !== currentUser?.username)
+                    .map(user => user.username);
+
+                if (otherUsers.length > 0) {
+                    const names = otherUsers.slice(0, 3).join(', ');
+                    const text = otherUsers.length === 1 
+                        ? `${names} is typing...`
+                        : `${names} are typing...`;
+                    
+                    typingText.textContent = text;
+                    typingIndicator.classList.remove('hidden');
+                } else {
+                    typingIndicator.classList.add('hidden');
+                }
             });
-        });
-    }
-
-    // Typing Indicator Functions
-    function startTyping() {
-        if (!currentUser || isTyping) return;
-
-        isTyping = true;
-        set(ref(database, `typing/${currentUser.uid}`), {
-            username: currentUser.username,
-            timestamp: serverTimestamp()
-        });
-
-        // Clear existing timeout
-        if (typingTimeout) {
-            clearTimeout(typingTimeout);
         }
 
-        // Auto-stop typing after 3 seconds
-        typingTimeout = setTimeout(stopTyping, 3000);
-    }
-
-    function stopTyping() {
-        if (!currentUser || !isTyping) return;
-
-        isTyping = false;
-        remove(ref(database, `typing/${currentUser.uid}`));
-
-        if (typingTimeout) {
-            clearTimeout(typingTimeout);
-            typingTimeout = null;
+        // Auto-resize textarea
+        function adjustTextareaHeight() {
+            messageInput.style.height = 'auto';
+            messageInput.style.height = Math.min(messageInput.scrollHeight, 100) + 'px';
         }
-    }
 
-    function monitorTyping() {
-        const typingRef = ref(database, 'typing');
-        
-        onValue(typingRef, (snapshot) => {
-            const typingUsers = snapshot.val() || {};
-            const otherUsers = Object.values(typingUsers)
-                .filter(user => user.username !== currentUser?.username)
-                .map(user => user.username);
+        // Initialize Chat
+        function initializeChat() {
+            listenToMessages();
+            monitorOnlineUsers();
+            monitorTyping();
+        }
 
-            if (otherUsers.length > 0) {
-                const names = otherUsers.slice(0, 3).join(', ');
-                const text = otherUsers.length === 1 
-                    ? `${names} is typing...`
-                    : `${names} are typing...`;
-                
-                typingText.textContent = text;
-                typingIndicator.classList.remove('hidden');
+        // Event Listeners
+        loginBtn.addEventListener('click', login);
+        logoutBtn.addEventListener('click', logout);
+        sendBtn.addEventListener('click', sendMessage);
+
+        usernameInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') login();
+        });
+
+        messageInput.addEventListener('input', (e) => {
+            const hasText = e.target.value.trim().length > 0;
+            sendBtn.disabled = !hasText;
+            adjustTextareaHeight();
+            
+            if (hasText) {
+                startTyping();
             } else {
-                typingIndicator.classList.add('hidden');
+                stopTyping();
             }
         });
-    }
 
-    // Auto-resize textarea
-    function adjustTextareaHeight() {
-        messageInput.style.height = 'auto';
-        messageInput.style.height = Math.min(messageInput.scrollHeight, 100) + 'px';
-    }
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                if (!sendBtn.disabled) sendMessage();
+            }
+        });
 
-    // Initialize Chat
-    function initializeChat() {
-        listenToMessages();
-        monitorOnlineUsers();
-        monitorTyping();
-    }
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', () => {
+            usernameInput.focus();
+        });
 
-    // Event Listeners
-    loginBtn.addEventListener('click', login);
-    logoutBtn.addEventListener('click', logout);
-    sendBtn.addEventListener('click', sendMessage);
-
-    usernameInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') login();
-    });
-
-    messageInput.addEventListener('input', (e) => {
-        const hasText = e.target.value.trim().length > 0;
-        sendBtn.disabled = !hasText;
-        adjustTextareaHeight();
-        
-        if (hasText) {
-            startTyping();
-        } else {
-            stopTyping();
-        }
-    });
-
-    messageInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            if (!sendBtn.disabled) sendMessage();
-        }
-    });
-
-    // Initialize app
-    document.addEventListener('DOMContentLoaded', () => {
-        usernameInput.focus();
-    });
-
-    // Handle page unload
-    window.addEventListener('beforeunload', () => {
-        if (currentUser) {
-            remove(ref(database, `users/${currentUser.uid}`));
-            remove(ref(database, `typing/${currentUser.uid}`));
-        }
-    });
-</script>
-```
-
+        // Handle page unload
+        window.addEventListener('beforeunload', () => {
+            if (currentUser) {
+                remove(ref(database, `users/${currentUser.uid}`));
+                remove(ref(database, `typing/${currentUser.uid}`));
+            }
+        });
+    </script>
 </body>
 </html>
