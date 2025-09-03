@@ -417,7 +417,7 @@
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-analytics.js";
-        import { getDatabase, ref, push, set, onValue, serverTimestamp, onDisconnect, remove, limitToLast } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+        import { getDatabase, ref, push, set, onValue, serverTimestamp, onDisconnect, remove, query, limitToLast } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
         import { getAuth, signInAnonymously, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
         // Your web app's Firebase configuration
@@ -683,7 +683,7 @@
 
         function listenToMessages() {
             const messagesRef = ref(database, 'messages');
-            const messagesQuery = limitToLast(messagesRef, 50);
+            const messagesQuery = query(messagesRef, limitToLast(50));
             
             onValue(messagesQuery, (snapshot) => {
                 messagesContainer.innerHTML = '';
