@@ -501,17 +501,36 @@
                 return;
             }
 
+            console.log('Starting login process...');
+            console.log('Firebase app initialized:', !!app);
+            console.log('Auth object:', auth);
+            console.log('Database object:', database);
+
             try {
+                // Test database connection first
+                console.log('Testing database connection...');
+                const testRef = ref(database, '.info/connected');
+                
                 // Sign in anonymously with Firebase Auth
+                console.log('Attempting anonymous sign in...');
                 const userCredential = await signInAnonymously(auth);
+                console.log('Anonymous sign in successful:', userCredential.user.uid);
+                
                 currentUser = {
                     uid: userCredential.user.uid,
                     username: username,
                     joinedAt: Date.now()
                 };
 
-                // Update user presence
-                await updateUserPresence();
+                // Test writing to database
+                console.log('Testing database write...');
+                const userRef = ref(database, `users/${currentUser.uid}`);
+                await set(userRef, {
+                    username: currentUser.username,
+                    lastSeen: serverTimestamp(),
+                    online: true
+                });
+                console.log('Database write successful');
                 
                 // Initialize chat
                 initializeChat();
@@ -524,10 +543,30 @@
                 chatContainer.classList.remove('hidden');
                 
                 messageInput.focus();
+                
+                console.log('Login completed successfully');
 
             } catch (error) {
-                console.error('Login error:', error);
-                showStatus('Failed to join chat. Please try again.');
+                console.error('Login error details:');
+                console.error('Error object:', error);
+                console.error('Error code:', error?.code);
+                console.error('Error message:', error?.message);
+                console.error('Error stack:', error?.stack);
+                
+                let errorMessage = 'Failed to join chat. ';
+                if (error?.code === 'permission-denied' || error?.message?.includes('permission')) {
+                    errorMessage += 'Database permission denied. Please check Firebase rules.';
+                } else if (error?.code === 'auth/operation-not-allowed') {
+                    errorMessage += 'Anonymous authentication not enabled.';
+                } else if (error?.code === 'database/permission-denied') {
+                    errorMessage += 'Database access denied. Check your Firebase rules.';
+                } else if (error?.message) {
+                    errorMessage += error.message;
+                } else {
+                    errorMessage += 'Unknown error occurred. Check console for details.';
+                }
+                
+                showStatus(errorMessage);
             }
         }
 
@@ -558,7 +597,7 @@
         }
 
         // Presence Management
-        async function updateUserPresence() {
+        function setupPresenceSystem() {
             if (!currentUser) return;
 
             const userRef = ref(database, `users/${currentUser.uid}`);
@@ -566,16 +605,12 @@
 
             onValue(connectedRef, (snapshot) => {
                 if (snapshot.val() === true) {
-                    // User is online
-                    set(userRef, {
-                        username: currentUser.username,
-                        lastSeen: serverTimestamp(),
-                        online: true
-                    });
-
-                    // Remove user when they disconnect
+                    console.log('Connected to Firebase');
+                    // Set up disconnect handlers
                     onDisconnect(userRef).remove();
                     onDisconnect(ref(database, `typing/${currentUser.uid}`)).remove();
+                } else {
+                    console.log('Disconnected from Firebase');
                 }
             });
         }
@@ -722,6 +757,7 @@
 
         // Initialize Chat
         function initializeChat() {
+            setupPresenceSystem();
             listenToMessages();
             monitorOnlineUsers();
             monitorTyping();
